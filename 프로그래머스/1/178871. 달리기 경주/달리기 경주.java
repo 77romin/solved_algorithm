@@ -1,22 +1,51 @@
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Map;
+import java.util.HashMap;
 
 class Solution {
-    public String[] solution(String[] players, String[] callings) { // players: 현재 등수, callings: 제친 선수 호명
-        List<String> pList = new ArrayList<>(Arrays.asList(players));
+    private final Map<String, Integer> playerMap = new HashMap<>(); // 선수 위주 (key: 선수이름 / value: 등수)
+    private final Map<Integer, String> rankMap = new HashMap<>(); // 등수 위주 (key: 등수 / value: 선수이름)
+    
+    public String[] solution(String[] players, String[] callings) {
+        String[] answer = new String[players.length];
         
-        for(String calling:callings) {
-            int playerIndex = pList.indexOf(calling); // 추월 성공한 선수 최초 위치
-            int overPlayerIndex = playerIndex-1; // 추월당한 선수 최초 위치
-            pList.set(playerIndex, pList.get(overPlayerIndex));  // 추월당한 선수 위치 뒤로 조정
-            pList.set(playerIndex-1, calling); // 추월한 선수 위치 앞으로 조정
+        // 해시맵 두개를 사용하는 이유: 시간복잡도를 줄이기 위해서.
+        playerMapping(players); // 선수이름 기준 매핑
+        rankMapping(players); // 등수 기준 매핑
+        
+        hardGame(callings); // 엎치락 뒤치락~
+        
+        for(int rank:rankMap.keySet()) { // 등수 오름차순으로 배열에 저장
+            answer[rank]=rankMap.get(rank);
         }
-        
-        String[] answer = pList.toArray(new String[pList.size()]);
         
         return answer;
     }
+    
+    /* --- Business Logic --- */
+    
+    void playerMapping(String[] players) { // 해시맵에 선수이름:등수 넣어주기 (key: 선수이름 / value: 등수)
+        int i=0;
+        for(String player:players)
+            playerMap.put(player, i++);
+    }
+        
+    void rankMapping(String[] players) { // 해시맵에 등수:선수이름 넣어주기 (key: 등수 / value: 선수이름)
+        int i=0;
+        for(String player:players)
+            rankMap.put(i++, player);
+    }
+    
+    void hardGame(String[] callings) {
+        // 호명될때마다 선수 등수 변화
+        for(String call:callings) {
+            int index = playerMap.get(call); // 추월할 선수(key: call / value: index)
+            String loser = rankMap.get(index-1); // 추월당한 선수(key: index-1 / value: loser)
+            playerMap.put(call, index-1);
+            playerMap.put(loser, index);
+            
+            rankMap.put(index-1, call);
+            rankMap.put(index, loser);
+        }
+    }
+    
 }
-
-// 풀이: 이중 for문을 쓰면 시간초과(최악의 경우: 500억ms)가 커서 ArrayList를 활용하여 선수 위치 교체 시간복잡도O(1)로 실시함.
