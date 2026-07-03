@@ -1,0 +1,15 @@
+import java.util.Scanner;
+
+class Solution {
+	public static void main(String args[]) throws Exception {
+		Scanner sc = new Scanner(System.in);
+		String n = sc.nextLine();
+        String[] nBits = n.split("");
+        
+        int sum = 0;
+        for(String nBit : nBits)
+            sum += Integer.parseInt(nBit);
+        
+        System.out.println(sum);
+	}
+}
