@@ -1,0 +1,68 @@
+import java.util.Scanner;
+import java.io.FileInputStream;
+
+class Solution {
+	public static void main(String args[]) throws Exception {
+		Scanner sc = new Scanner(System.in);
+		int T = sc.nextInt();
+		for(int test_case = 1; test_case <= T; test_case++) {
+            System.out.printf("#%d ", test_case);
+            int n = sc.nextInt();
+            int m = sc.nextInt();
+            int[][] flies = new int[n][n];
+            for(int i=0; i<n; i++)
+                for(int j=0; j<n; j++)
+                    flies[i][j] = sc.nextInt();
+            System.out.println(killMaxFlies(flies, n, m));
+		}
+	}
+    
+    private static int killMaxFlies(int[][] flies, int n, int m) {
+        int answer = 0;
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<n; j++) {
+                int killFlies = flies[i][j];
+                for(int k=1; k<m; k++) {
+                    if(j+k>=n) continue;
+                      killFlies += flies[i][j+k];
+                }
+                for(int k=1; k<m; k++) {
+                    if(i+k>=n) continue;
+                      killFlies += flies[i+k][j];
+                }
+                for(int k=1; k<m; k++) {
+                    if(j-k<0) continue;
+                      killFlies += flies[i][j-k];
+                }
+                for(int k=1; k<m; k++) {
+                    if(i-k<0) continue;
+                      killFlies += flies[i-k][j];
+                }
+                
+                answer = answer>killFlies ? answer : killFlies;
+              
+                killFlies = flies[i][j];
+                for(int k=1; k<m; k++) {
+                    if(i+k>=n || j+k>=n) continue;
+                    killFlies += flies[i+k][j+k];
+                }
+                for(int k=1; k<m; k++) {
+                    if(i-k<0 || j+k>=n) continue;
+                    killFlies += flies[i-k][j+k];
+                }
+                for(int k=1; k<m; k++) {
+                    if(i+k>=n || j-k<0) continue;
+                    killFlies += flies[i+k][j-k];
+                }
+                for(int k=1; k<m; k++) {
+                    if(i-k<0 || j-k<0) continue;
+                    killFlies += flies[i-k][j-k];
+                }
+                
+                answer = answer>killFlies ? answer : killFlies;
+            }
+        }
+        
+        return answer;
+    }
+}
