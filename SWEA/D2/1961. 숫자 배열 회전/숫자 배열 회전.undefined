@@ -1,0 +1,54 @@
+import java.util.Scanner;
+import java.io.FileInputStream;
+
+class Solution {
+	public static void main(String args[]) throws Exception {
+		Scanner sc = new Scanner(System.in);
+		int T=sc.nextInt();
+		
+		for(int test_case = 1; test_case <= T; test_case++) {
+            int n = sc.nextInt();
+            int[][] rect = initRect(n, sc);
+            System.out.printf("#%d\n", test_case);
+            rotateRect(rect);
+        }
+	}
+    
+    private static int[][] initRect(int n, Scanner sc) {
+        int[][] rect = new int[n][n];
+        for(int i=0; i<n; i++)
+            for(int j=0; j<n; j++)
+                rect[i][j] = sc.nextInt();
+        return rect;
+    }
+    
+    private static void rotateRect(int[][] rect) {
+        int n = rect.length;
+        int[][] rotate90 = new int[n][n];
+        int[][] rotate180 = new int[n][n];
+        int[][] rotate270 = new int[n][n];
+        
+         for(int i=0; i<n; i++) {
+            for(int j=0; j<n; j++)
+                rotate90[j][n-1-i] = rect[i][j];
+         }
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<n; j++)
+                rotate180[j][n-1-i] = rotate90[i][j];
+         }
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<n; j++)
+                rotate270[j][n-1-i] = rotate180[i][j];
+         }
+        
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<n; j++) System.out.print(rotate90[i][j]);
+            System.out.print(" ");
+            for(int j=0; j<n; j++) System.out.print(rotate180[i][j]);
+            System.out.print(" ");
+            for(int j=0; j<n; j++) System.out.print(rotate270[i][j]);
+            System.out.println("");
+        }
+         
+    }
+}
