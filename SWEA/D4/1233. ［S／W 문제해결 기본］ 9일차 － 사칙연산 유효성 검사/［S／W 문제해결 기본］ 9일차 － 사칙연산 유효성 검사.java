@@ -23,3 +23,8 @@ class Solution {
         System.out.print(sb);
 	}
 }
+
+/**
+ * 시간복잡도: O(N)
+ * 원리: leaf node가 숫자가 아닌 연산자일 경우 계산불가로 판단. 별도 트리구조 미생성하여 풀이
+ */
