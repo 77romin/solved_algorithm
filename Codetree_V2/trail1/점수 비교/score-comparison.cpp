@@ -8,10 +8,7 @@ int main() {
     int bMath, bEng;
     cin >> bMath >> bEng;
 
-    if(aMath > bMath && aEng > bEng)
-        cout << 1;
-    else
-        cout << 0;
-
+    cout << (aMath > bMath && aEng > bEng) ? 1 : 0;
+    
     return 0;
 }
