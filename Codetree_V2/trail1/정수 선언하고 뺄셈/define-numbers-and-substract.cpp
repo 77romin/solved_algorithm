@@ -2,7 +2,7 @@
 using namespace std;
 
 int main() {
-    int a = 97, b = 13, c = a-b;
-    cout << a << " - " << b << " = " << c << endl;
+    int a = 97, b = 13;
+    cout << a << " - " << b << " = " << a-b << endl;
     return 0;
 }
