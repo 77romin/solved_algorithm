@@ -35,4 +35,3 @@ int solution(vector<string> want, vector<int> number, vector<string> discount) {
 }
 
 // 투 포인터(슬라이딩 윈도우)
-// n은 최대 10
