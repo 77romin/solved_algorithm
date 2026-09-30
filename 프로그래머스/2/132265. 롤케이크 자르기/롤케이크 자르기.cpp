@@ -16,12 +16,7 @@ int solution(vector<int> topping) {
     }
     
     unordered_map<int, int> fmap; // 앞 부분 넣기
-    fmap.insert({topping[0], 1});
-    umap[topping[0]] -= 1;
-    if(umap[topping[0]]==0) 
-            umap.erase(topping[0]);
-    
-    for(int i=1; i<topping.size(); i++) { 
+    for(int i=0; i<topping.size(); i++) { 
         if(fmap.size() == umap.size())
             answer++;
         
