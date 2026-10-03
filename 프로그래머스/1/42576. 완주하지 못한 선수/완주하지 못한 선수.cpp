@@ -7,19 +7,14 @@ using namespace std;
 string solution(vector<string> participant, vector<string> completion) {
     unordered_map<string, int> complete;
     
-    for(string p : participant) {
-        if(complete.find(p) == complete.end())
-            complete.insert({p, 1});
-        else
-            complete[p] += 1;
-    }
+    for(string &p : participant)
+        complete[p]++;;
     
-    for(string c : completion)
-        complete[c] -= 1;
+    for(string &c : completion)
+        complete[c]--;
     
-    for(string p : participant) {
+    for(string &p : participant)
         if(complete[p]>0) return p;
-    }
     
     return "";
 }
