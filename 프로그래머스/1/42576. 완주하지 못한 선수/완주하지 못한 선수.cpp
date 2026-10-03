@@ -8,7 +8,7 @@ string solution(vector<string> participant, vector<string> completion) {
     unordered_map<string, int> complete;
     
     for(string p : participant) {
-        if(complete.count(p) == 0)
+        if(complete.find(p) == complete.end())
             complete.insert({p, 1});
         else
             complete[p] += 1;
