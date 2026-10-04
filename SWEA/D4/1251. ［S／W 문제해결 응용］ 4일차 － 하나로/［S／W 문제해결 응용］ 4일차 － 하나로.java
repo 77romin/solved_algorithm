@@ -119,3 +119,6 @@ class Solution {
         System.out.print(sb);
     }
 }
+
+// 프림 알고리즘 --> MST
+// 시간복잡도: O(N^2 log N)
