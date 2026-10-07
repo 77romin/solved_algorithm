@@ -1,4 +1,6 @@
-import java.util.PriorityQueue;
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
 
 class Solution {
     private int[] parents;
@@ -38,15 +40,16 @@ class Solution {
         for(int i=0; i<n; i++)
             parents[i] = i;
         
-        PriorityQueue<Edge> edges = new PriorityQueue<>();
+        List<Edge> edges = new ArrayList<>();
         
         for(int[] cost : costs)
-            edges.offer(new Edge(cost[0], cost[1], cost[2]));
+            edges.add(new Edge(cost[0], cost[1], cost[2]));
+        
+        Collections.sort(edges);
         
         int minCost = 0;
         int edgeCnt = 0;
-        while(!edges.isEmpty()) {
-            Edge curEdge = edges.poll();
+        for(Edge curEdge : edges) {
             if(union(curEdge.from, curEdge.to)) {
                 minCost += curEdge.cost;
                 edgeCnt++;
